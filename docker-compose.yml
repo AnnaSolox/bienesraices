@@ -32,7 +32,7 @@ services:
       - .:/workspace/bienesraices
     ports:
       - "8080:8080"
-    command: npm start
+    command: sh -c "npm install && npm run dev"
     depends_on:
       - db
       - php

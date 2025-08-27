@@ -1,7 +1,7 @@
 {
   "name": "PHP + MySQL + NodeJs Dev Container",
   "dockerComposeFile": "../docker-compose.yml",
-  "service": "php",
+  "service": "nodejs",
   "runServices": ["php", "nodejs", "db"],
   "workspaceFolder": "/workspace/bienesraices",
   "shutdownAction": "stopCompose",

@@ -29,3 +29,4 @@ access.log
 
 #Variables de entorno
 .env
+node_modules
