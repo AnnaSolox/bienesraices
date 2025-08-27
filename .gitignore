@@ -1,0 +1,31 @@
+#Archivos del SO
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ethumbs.db
+Thumbs.db
+desktop.ini
+
+#Configuración de IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.buildpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+#Logs
+*.log
+logs/
+log/
+error.log
+access.log
+
+#Variables de entorno
+.env

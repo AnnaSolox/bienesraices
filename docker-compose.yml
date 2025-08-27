@@ -1,0 +1,44 @@
+services:
+  php:
+    build: 
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    volumes: 
+      - .:/workspace/bienesraices
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    tty: true
+    env_file:
+      - .env
+
+  db:
+    image: mysql:8.0
+    restart: always
+    command: --ssl=0
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  nodejs:
+    image: node:24.6.0
+    container_name: nodejs
+    working_dir: /workspace/bienesraices
+    volumes:
+      - .:/workspace/bienesraices
+    ports:
+      - "8080:8080"
+    command: npm start
+    depends_on:
+      - db
+      - php
+    env_file:
+      - .env
+
+volumes:
+  db:
+    external: true

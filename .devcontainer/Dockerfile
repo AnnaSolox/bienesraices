@@ -1,0 +1,42 @@
+FROM php:8.4
+
+# Instalar dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libpq-dev \
+    libzip-dev \
+    unzip \
+    git \
+    curl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar las extensiones de PHP
+RUN docker-php-ext-install -j$(nproc) \
+    mysqli \
+    pdo_mysql \
+    pdo_pgsql \
+    gd \
+    zip
+
+
+# Instalar Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Establecer php.ini de development
+RUN ln -sf /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
+# Configura opciones útiles para el desarrollo
+RUN echo "display_errors = On" >> /usr/local/etc/php/php.ini \
+    && echo "display_startup_errors = On" >> /usr/local/etc/php/php.ini \
+    && echo "error_reporting = E_ALL" >> /usr/local/etc/php/php.ini
+
+#Establecer directorio de trabajo
+WORKDIR /workspace/bienesraices
+
+#Exponer el puerto por defecto
+EXPOSE 3000 3306
+
+#Comando por defecto para servir la app PHP
+CMD ["php", "-S", "0.0.0.0:3000", "-t", "."]
