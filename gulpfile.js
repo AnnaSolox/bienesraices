@@ -20,7 +20,16 @@ export function css() {
         .pipe(sass({
             style: 'compressed'
         }).on('error', sass.logError)) // aplicar sass con la relación hecha previamente
-        .pipe(dest('build/css', { sourcemaps: '.' })); // carpeta destino
+        .pipe(dest('build/css', { sourcemaps: '.' }))
+        .on('end', () => touchHTML()); // carpeta destino
+}
+
+
+function touchHTML() {
+  const htmlFile = 'index.html'; 
+  const time = new Date();
+  fs.utimesSync(htmlFile, time, time);
+  console.log('✨ index.html actualizado para Live Server');
 }
 
 
