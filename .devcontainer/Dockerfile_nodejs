@@ -1,0 +1,11 @@
+FROM node:24.6.0
+
+RUN apt-get update && apt-get install -y npm libnotify-bin dbus-x11
+
+# Establece el directorio de trabajo
+WORKDIR /workspace/bienesraices
+
+EXPOSE 8080
+
+# Define el comando por defecto para mantener el contenedor activo
+CMD ["tail", "-f", "/dev/null"]

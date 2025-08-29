@@ -2,7 +2,7 @@ services:
   php:
     build: 
       context: .
-      dockerfile: .devcontainer/Dockerfile
+      dockerfile: .devcontainer/Dockerfile_php
     volumes: 
       - .:/workspace/bienesraices
     ports:
@@ -27,12 +27,13 @@ services:
   nodejs:
     image: node:24.6.0
     container_name: nodejs
-    working_dir: /workspace/bienesraices
+    build: 
+      context: .
+      dockerfile: .devcontainer/Dockerfile_nodejs
     volumes:
-      - .:/workspace/bienesraices
+      - .:/workspace/bienesraices:delegated
     ports:
-      - "8080:8080"
-    command: sh -c "npm install && npm run dev"
+      - "5500:5500"
     depends_on:
       - db
       - php
