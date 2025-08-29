@@ -24,7 +24,7 @@ export function css() {
         .on('end', () => touchHTML()); // carpeta destino
 }
 
-
+// Función para actualizar timestamp del HTML
 function touchHTML() {
   const htmlFile = 'index.html'; 
   const time = new Date();
