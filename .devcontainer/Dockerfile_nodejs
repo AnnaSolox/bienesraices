@@ -1,6 +1,14 @@
 FROM node:24.6.0
 
-RUN apt-get update && apt-get install -y npm libnotify-bin dbus-x11
+RUN apt-get update && apt-get install -y \
+    npm \
+    libnotify-bin \
+    dbus-x11 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalar gulp cli globalmente
+RUN npm install --global gulp-cli
 
 # Establece el directorio de trabajo
 WORKDIR /workspace/bienesraices

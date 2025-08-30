@@ -36,7 +36,7 @@ RUN echo "display_errors = On" >> /usr/local/etc/php/php.ini \
 WORKDIR /workspace/bienesraices
 
 #Exponer el puerto por defecto
-EXPOSE 3000 3306
+EXPOSE 3000
 
 #Comando por defecto para servir la app PHP
 CMD ["php", "-S", "0.0.0.0:3000", "-t", "."]
