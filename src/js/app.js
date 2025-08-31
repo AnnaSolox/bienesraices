@@ -6,6 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function darkMode(){
+
+    const prefiereDarkMode = window.matchMedia('(prefers-color-scheme:dark)');
+
+    prefiereDarkMode.addEventListener('change', cambiarEsquemaColor)
+
+    function cambiarEsquemaColor(){
+        prefiereDarkMode.matches ?
+        document.body.classList.add('dark-mode') :
+        document.body.classList.remove('dark-mode');
+    }
+
     const botonDarkMode = document.querySelector('.dark-mode-boton');
     botonDarkMode.addEventListener('click', toggleDarkMode);
 
