@@ -1,0 +1,6 @@
+{
+  "name": "PHP + MySQL + NodeJs (NodeJS)",
+  "dockerComposeFile": ["../../docker-compose.yml"],
+  "service": "nodejs",
+  "workspaceFolder": "/workspace/bienesraices"
+}

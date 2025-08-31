@@ -26,10 +26,10 @@ export function css() {
 
 // Función para actualizar timestamp del HTML
 function touchHTML() {
-  const htmlFile = 'index.html'; 
+  const htmlFile = 'index.php'; 
   const time = new Date();
   fs.utimesSync(htmlFile, time, time);
-  console.log('✨ index.html actualizado para Live Server');
+  console.log('✨ index.php actualizado para Live Server');
 }
 
 
