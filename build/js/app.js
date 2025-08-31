@@ -1,0 +1,1 @@
+function eventListeners(){document.querySelector(".mobile-menu").addEventListener("click",function(){document.querySelector(".navegacion").classList.toggle("mostrar")})}document.addEventListener("DOMContentLoaded",function(){eventListeners()});
