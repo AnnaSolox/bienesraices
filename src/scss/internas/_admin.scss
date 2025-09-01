@@ -1,0 +1,8 @@
+@use 'base/variables' as v;
+
+.alerta {
+    padding: .5rem;
+    color: v.$rojo;
+    font-weight: v.$bold;
+    margin: 1rem 0;
+}
