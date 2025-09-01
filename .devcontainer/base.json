@@ -28,14 +28,10 @@
             "onAutoForward": "openBrowser"
         }
     },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "bmewburn.vscode-intelephense-client",
-                "esbenp.prettier-vscode",
-                "dbaeumer.vscode-eslint",
-                "ritwickdey.LiveServer"
-            ]
-        }
-    }
+    "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ritwickdey.LiveServer"
+    ]
 }
