@@ -3,6 +3,10 @@
 require '../../includes/config/database.php';
 $db = conectarDB();
 
+// Consultar para obtener los vendedores
+$consulta_vendedores = "SELECT * FROM vendedores";
+$resultado_vendedores = mysqli_query($db, $consulta_vendedores);
+
 require '../../includes/funciones.php';
 incluirTemplate('header');
 
@@ -16,7 +20,6 @@ $errores = [
     'estacionamiento' => '',
     'vendedor' => '',
 ];
-
     $titulo = '';
     $precio = '';
     $descripcion = '';
@@ -64,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Revisar que no haya errores
-    if (empty($errores)) {
+    if (!array_filter($errores)) {
         // Insertar en la base de datos
         $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedor_id) 
         VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedor_id' )";
@@ -72,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = mysqli_query($db, $query);
 
         if ($resultado) {
-            echo "Insertado correctamente";
+            header('Location: /admin'); //Redireccionar al panel admin
         }
     }
 }
@@ -135,9 +138,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <legend>Vendedor</legend>
 
             <select name="vendedor">
-                <option value="" disabled selected>-- Seleccionar vendedor --</option>
-                <option value="1">Anna</option>
-                <option value="2">Erika</option>
+                <option value="" selected disabled>-- Seleccionar vendedor --</option>
+                <?php while($row = mysqli_fetch_assoc($resultado_vendedores) ): ?>
+                    <option <?php echo $vendedor_id === $row['id'] ? 'selected' : ''; ?> value="<?php echo $row['id']; ?>">
+                        <?php echo $row['nombre'] . ' ' . $row['apellido']; ?>
+                    </option>
+                <?php endwhile; ?>
             </select>
             <?php if($errores['vendedor']): ?>
                 <div class="alerta"><?php echo $errores['vendedor']; ?></div>
