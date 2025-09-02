@@ -2,7 +2,33 @@
 
 .alerta {
     padding: .5rem;
-    color: v.$rojo;
     font-weight: v.$bold;
     margin: 1rem 0;
+
+    &.error {
+        color: v.$rojo;
+    }
+
+    &.exito {
+        color: v.$verde;
+    }
+}
+
+table.propiedades {
+    margin-top: 4rem;
+    width: 100%;
+    border-spacing: 0;
+
+    thead {
+        background-color: v.$verde;
+
+        th {
+            color: v.$blanco;
+            padding: 2rem;
+        }
+    }
+
+    .imagen-tabla {
+        width: 20rem;
+    }
 }

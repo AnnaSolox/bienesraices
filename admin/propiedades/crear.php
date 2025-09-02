@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = mysqli_query($db, $query);
 
         if ($resultado) {
-            header('Location: /admin'); //Redireccionar al panel admin
+            header('Location: /admin?resultado=1'); //Redireccionar al panel admin
         }
     }
 }
@@ -130,25 +130,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" placeholder="Título propiedad" value="<?php echo $titulo; ?>">
             <?php if($errores['titulo']): ?>
-                <div class="alerta"><?php echo $errores['titulo']; ?></div>
+                <div class="alerta error"><?php echo $errores['titulo']; ?></div>
             <?php endif; ?>
 
             <label for="precio">Precio:</label>
             <input type="number" id="precio" name="precio" placeholder="Precio propiedad" value="<?php echo $precio; ?>">
             <?php if($errores['precio']): ?>
-                <div class="alerta"><?php echo $errores['precio']; ?></div>
+                <div class="alerta error"><?php echo $errores['precio']; ?></div>
             <?php endif; ?>
 
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
             <?php if($errores['precio']): ?>
-                <div class="alerta"><?php echo $errores['imagen']; ?></div>
+                <div class="alerta error"><?php echo $errores['imagen']; ?></div>
             <?php endif; ?>
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion"><?php if($descripcion !== '') echo $descripcion; ?></textarea>
             <?php if($errores['descripcion']): ?>
-                <div class="alerta"><?php echo $errores['descripcion']; ?></div>
+                <div class="alerta error"><?php echo $errores['descripcion']; ?></div>
             <?php endif; ?>
         </fieldset>
 
