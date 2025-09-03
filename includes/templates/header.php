@@ -29,7 +29,7 @@
                         <a href="contacto.php">Contacto</a>
                     </nav>
                 </div>
-            </div> <!-- Cierre barra -->
+            </div> <!-- .barra -->
 
             <?php if ($inicio):  ?>
             <h1>Venta de casas y departamentos exclusivos de lujo</h1>

@@ -33,11 +33,10 @@ $errores = [
 // Ejecutar el código después de enviar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    /* echo "<pre>";
+    echo "<pre>";
     var_dump($_FILES);
     echo "</pre>";
 
-    exit; */
 
     /* mysqli_real_escape_string se encarga de validar los datos introducidos por el usuario y evitar sentencias maliciosas */
     $titulo = mysqli_real_escape_string( $db, $_POST['titulo'] );
@@ -79,14 +78,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores['vendedor'] = "Elige un vendedor";
     }
 
-    if (!$imagen['name']) {
-        $errores['imagen'] = "La imagen es obligatoria";
-    }
-
     // Validar por tamaño
     $medida = 1000 * 200;
 
-    if ($imagen['size'] > $medida || $imagen['error']) {
+    if (!$imagen['name']) {
+        $errores['imagen'] = "La imagen es obligatoria";
+    }elseif ($imagen['error']) {
+        $errores['imagen'] = "Ha habido un error al subir la imagen";
+    }else if ($imagen['size'] > $medida) {
         $errores['imagen'] = "La imagen debe tener un tamaño inferior a 200kb";
     }
 
@@ -141,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
-            <?php if($errores['precio']): ?>
+            <?php if($errores['imagen']): ?>
                 <div class="alerta error"><?php echo $errores['imagen']; ?></div>
             <?php endif; ?>
 
