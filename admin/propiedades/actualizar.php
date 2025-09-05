@@ -1,5 +1,11 @@
 <?php
 
+require '../../includes/funciones.php';
+$auth = estaAutenticado();
+if(!$auth){
+    header('Location: /');
+}
+
 // Validar la URL por ID válido
 $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -20,7 +26,6 @@ $propiedad = mysqli_fetch_assoc($resultado_propiedad);
 $consulta_vendedores = "SELECT * FROM vendedores";
 $resultado_vendedores = mysqli_query($db, $consulta_vendedores);
 
-require '../../includes/funciones.php';
 incluirTemplate('header');
 
 // Array con mensajes de error

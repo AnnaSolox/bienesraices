@@ -1,5 +1,11 @@
 <?php
 
+require '../../includes/funciones.php';
+$auth = estaAutenticado();
+if(!$auth){
+    header('Location: /');
+}
+
 require '../../includes/config/database.php';
 $db = conectarDB();
 
@@ -7,7 +13,7 @@ $db = conectarDB();
 $consulta_vendedores = "SELECT * FROM vendedores";
 $resultado_vendedores = mysqli_query($db, $consulta_vendedores);
 
-require '../../includes/funciones.php';
+
 incluirTemplate('header');
 
 // Array con mensajes de error
@@ -33,10 +39,10 @@ $errores = [
 // Ejecutar el código después de enviar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    echo "<pre>";
+/*     echo "<pre>";
     var_dump($_FILES);
     echo "</pre>";
-
+ */
 
     /* mysqli_real_escape_string se encarga de validar los datos introducidos por el usuario y evitar sentencias maliciosas */
     $titulo = mysqli_real_escape_string( $db, $_POST['titulo'] );
