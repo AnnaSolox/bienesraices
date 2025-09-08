@@ -1,5 +1,7 @@
 <?php
 
+require 'includes/app.php';
+
 $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT);
 
@@ -7,7 +9,6 @@ if(!$id){
     header('Location: /');
 }
 
-require __DIR__ . '/includes/config/database.php';
 $db = conectarDB();
 
 $query = "SELECT * FROM propiedades WHERE id = $id";
@@ -20,7 +21,6 @@ if($resultado -> num_rows === 0){
 
 $propiedad = mysqli_fetch_assoc($resultado);
 
-require 'includes/funciones.php';
 incluirTemplate('header');
 ?>
 

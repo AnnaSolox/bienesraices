@@ -34,3 +34,5 @@ node_modules
 #Info php
 info.php
 usuario.php
+
+/vendor/

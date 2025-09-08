@@ -1,0 +1,17 @@
+{
+    "name": "root/bienesraices",
+    "description": "Proyecto bieneraices",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "AnnaSolox",
+            "email": "anna.sol.loz@gmail.com"
+        }
+    ],
+    "require": {}
+}
