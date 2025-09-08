@@ -1,12 +1,11 @@
 <?php
 
-require '../../includes/funciones.php';
-$auth = estaAutenticado();
-if(!$auth){
-    header('Location: /');
-}
+require '../../includes/app.php';
 
-require '../../includes/config/database.php';
+use App\Propiedad;
+
+estaAutenticado();
+
 $db = conectarDB();
 
 // Consultar para obtener los vendedores
@@ -39,10 +38,9 @@ $errores = [
 // Ejecutar el código después de enviar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-/*     echo "<pre>";
-    var_dump($_FILES);
-    echo "</pre>";
- */
+    $propiedad = new Propiedad($_POST);
+    $propiedad->guardar();
+    debuguear($propiedad);
 
     /* mysqli_real_escape_string se encarga de validar los datos introducidos por el usuario y evitar sentencias maliciosas */
     $titulo = mysqli_real_escape_string( $db, $_POST['titulo'] );
@@ -110,12 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Subir la imagen
         move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
 
-        // Insertar en la base de datos
-        $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, vendedor_id) 
-        VALUES ( '$titulo', '$precio', '$nombreImagen' , '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedor_id' )";
-
-        $resultado = mysqli_query($db, $query);
-
         if ($resultado) {
             header('Location: /admin?resultado=1'); //Redireccionar al panel admin
         }
@@ -182,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <fieldset>
             <legend>Vendedor</legend>
 
-            <select name="vendedor">
+            <select name="vendedor_id">
                 <option value="" selected disabled>-- Seleccionar vendedor --</option>
                 <?php while($row = mysqli_fetch_assoc($resultado_vendedores) ): ?>
                     <option <?php echo $vendedor_id === $row['id'] ? 'selected' : ''; ?> value="<?php echo $row['id']; ?>">

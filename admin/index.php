@@ -1,10 +1,7 @@
 <?php
 
 require '../includes/funciones.php';
-$auth = estaAutenticado();
-if(!$auth){
-    header('Location: /');
-}
+estaAutenticado();
 
 // Importar la conexión
 require '../includes/config/database.php';

@@ -7,7 +7,7 @@ $db_name = getenv('MYSQL_DATABASE');
 
 function conectarDB() : mysqli {
     global $db_host, $db_user, $db_pass, $db_name;
-    $db = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+    $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
     if (!$db) {
         echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
