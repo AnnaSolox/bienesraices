@@ -4,8 +4,9 @@ define('TEMPLATES_URL', __DIR__ . '/templates');
 define('FUNCIONES_URL', __DIR__ . 'funciones.php');
 define('CARPETA_IMAGENES', __DIR__ . '/../imagenes/');
 
-function incluirTemplate(string $nombre, bool $inicio = false)
+function incluirTemplate(string $nombre, bool $inicio = false, array $variables = [])
 {
+    extract($variables);
     include TEMPLATES_URL . "/$nombre.php";
 }
 
