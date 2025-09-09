@@ -48,13 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* SUBIDA DE ARCHIVOS */
 
         //Crear carpeta
-        $carpetaImagenes = '../../imagenes/';
-        if (!is_dir($carpetaImagenes)) {
-            mkdir($carpetaImagenes);
+        if (!is_dir(CARPETA_IMAGENES)) {
+            mkdir(CARPETA_IMAGENES);
         }
 
         //Guardar la imagen en el servidor
-        $imagen->save($carpetaImagenes . $nombreImagen);
+        $imagen->save(CARPETA_IMAGENES . $nombreImagen);
 
         $resultado = $propiedad->guardar();
         if ($resultado) {
