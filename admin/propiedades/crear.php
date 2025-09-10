@@ -19,27 +19,18 @@ $errores = Propiedad::getErrores();
 
 incluirTemplate('header');
 
-$titulo = '';
-$precio = '';
-$descripcion = '';
-$habitaciones = '';
-$wc = '';
-$estacionamiento = '';
-$vendedor_id = '';
-$imagen = '';
-
 $propiedad = new Propiedad();
 
 // Ejecutar el código después de enviar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $propiedad = new Propiedad($_POST);
+    $propiedad = new Propiedad($_POST['propiedad']);
 
     // Generar nombre único
     $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-    if($_FILES['imagen']['tmp_name']){
+    if($_FILES['propiedad']['tmp_name']['imagen']){
         $manager = new Image(Driver::class);
-        $imagen = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
+        $imagen = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
         $propiedad->setImagen($nombreImagen);
     }
 
@@ -58,9 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagen->save(CARPETA_IMAGENES . $nombreImagen);
 
         $resultado = $propiedad->guardar();
-        if ($resultado) {
-            header('Location: /admin?resultado=1'); //Redireccionar al panel admin
-        }
     }
 }
 ?>
