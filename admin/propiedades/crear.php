@@ -3,16 +3,14 @@
 require '../../includes/app.php';
 
 use App\Propiedad;
+use App\Vendedor;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
 estaAutenticado();
 
-$db = conectarDB();
-
 // Consultar para obtener los vendedores
-$consulta_vendedores = "SELECT * FROM vendedores";
-$resultado_vendedores = mysqli_query($db, $consulta_vendedores);
+$vendedores = Vendedor::getAll();
 
 $errores = Propiedad::getErrores();
 
@@ -59,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="/admin" class="boton-verde">Volver</a>
 
     <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
-        <?php incluirTemplate('formulario_propiedades', false, ['propiedad' => $propiedad, 'errores' => $errores, 'resultado_vendedores' => $resultado_vendedores]); ?>
+        <?php incluirTemplate('formulario_propiedades', false, ['propiedad' => $propiedad, 'errores' => $errores, 'vendedores' => $vendedores]); ?>
        
         <input type="submit" value="Crear propiedad" class="boton-verde">
 

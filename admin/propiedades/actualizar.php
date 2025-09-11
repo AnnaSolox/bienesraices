@@ -1,6 +1,7 @@
 <?php
 
 use App\Propiedad;
+use App\Vendedor;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
@@ -19,8 +20,7 @@ if (!$id) {
 $propiedad = Propiedad::getById($id);
 
 // Consultar para obtener los vendedores
-$consulta_vendedores = "SELECT * FROM vendedores";
-$resultado_vendedores = mysqli_query($db, $consulta_vendedores);
+$vendedores = Vendedor::getAll();
 
 incluirTemplate('header');
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = $propiedad->validar();
 
     $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-    if($_FILES['propiedad']['tmp_name']['imagen']){
+    if ($_FILES['propiedad']['tmp_name']['imagen']) {
         $manager = new Image(Driver::class);
         $imagen = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
         $propiedad->setImagen($nombreImagen);
@@ -47,10 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Revisar que no haya errores
     if (!array_filter($errores)) {
-        //Almacenar la imagen
-        $imagen->save(CARPETA_IMAGENES . $nombreImagen);
+        if ($_FILES['propiedad']['tmp_name']['imagen']) {
+            //Almacenar la imagen
+            $imagen->save(CARPETA_IMAGENES . $nombreImagen);
 
-        $resultado = $propiedad->guardar();
+            $propiedad->guardar();
+        }
     }
 }
 ?>
@@ -61,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="/admin" class="boton-verde">Volver</a>
 
     <form class="formulario" method="POST" enctype="multipart/form-data">
-        <?php incluirTemplate('formulario_propiedades', false, ['propiedad' => $propiedad, 'errores' => $errores, 'resultado_vendedores' => $resultado_vendedores]); ?>
+        <?php incluirTemplate('formulario_propiedades', false, ['propiedad' => $propiedad, 'errores' => $errores, 'vendedores' => $vendedores]); ?>
 
         <input type="submit" value="Actualizar propiedad" class="boton-verde">
 
