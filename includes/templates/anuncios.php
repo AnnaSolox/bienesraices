@@ -1,7 +1,11 @@
 <?php
     use App\Propiedad;
 
-    $propiedades = Propiedad::getAll();
+    if($_SERVER['SCRIPT_NAME'] === '/anuncios.php'){
+        $propiedades = Propiedad::getAll();
+    } else {
+        $propiedades = Propiedad::getLimited(3);
+    }
 ?>
 
 <div class="contenedor-anuncios">

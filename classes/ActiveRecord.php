@@ -157,6 +157,15 @@ class ActiveRecord
     }
 
     /**
+     * @return static[]
+     */
+    public static function getLimited($cantidad) {
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+    /**
      * @return static
      */
     public static function getById($id)
