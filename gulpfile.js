@@ -12,9 +12,7 @@ const bs = browserSync.create();
 const sass = gulpSass(dartSass); //enlazamos gulp con sas
 
 export function js() {
-  return src("src/js/app.js")
-    .pipe(terser())
-    .pipe(dest("build/js"));
+  return src("src/js/app.js").pipe(terser()).pipe(dest("./public/build/js"));
 }
 
 export function css() {
@@ -24,13 +22,13 @@ export function css() {
         style: "compressed",
       }).on("error", sass.logError)
     ) // aplicar sass con la relación hecha previamente
-    .pipe(dest("build/css", { sourcemaps: "." }))
+    .pipe(dest("./public/build/css", { sourcemaps: "." }))
     .pipe(bs.stream());
 }
 
 export function serveProxy() {
   console.log("🌐 Servidor CON proxy...");
-  
+
   bs.init({
     proxy: "http://php:3000/",
     port: 4000,
@@ -38,20 +36,14 @@ export function serveProxy() {
     notify: true,
     logLevel: "info",
     ignore: ["**/node_modules/**"],
-    host: "127.0.0.1",
-    files: [
-      "build/css/**/*.css",
-      "build/js/**/*.js",
-      "**/*.php",
-      "**/*.html"
-    ]
+    host: "127.0.0.1"
   });
 }
 
 // Codigo de node.js para hacer las imágenes más pequeñas --> sharp + fs
 export async function crop() {
   const inputFolder = "src/img/";
-  const outputFolder = "build/img/thumb";
+  const outputFolder = "./public/build/img/thumb";
   const width = 250;
   const height = 180;
   if (!fs.existsSync(outputFolder)) {
@@ -77,7 +69,7 @@ export async function crop() {
 
 export async function imagenes() {
   const srcDir = "./src/img";
-  const buildDir = "./build/img";
+  const buildDir = "./public/build/img";
   const images = await glob("./src/img/*{jpg,png}");
 
   return images.forEach((file) => {
@@ -116,17 +108,17 @@ export function dev() {
   };
 
   watch("src/scss/**/*.scss", watchOptions, css).on("change", (path) => {
-      console.log(`📝 SCSS changed: ${path}`);
+    console.log(`📝 SCSS changed: ${path}`);
   });
 
   watch("src/js/**/*.js", watchOptions, js).on("change", (path) => {
-      console.log(`📜 JS changed: ${path}`);
-      bs.reload();
+    console.log(`📜 JS changed: ${path}`);
+    bs.reload();
   });
 
   watch("src/img/*.{png,jpg}", watchOptions, imagenes).on("change", (path) => {
-      console.log(`🖼️ Image changed: ${path}`);
-      bs.reload();
+    console.log(`🖼️ Image changed: ${path}`);
+    bs.reload();
   });
 
   console.log("👀 Watch activo - modifica archivos SCSS para probar");
@@ -134,6 +126,6 @@ export function dev() {
 
 // Inicializar todas las tareas cuando se abre la página
 export default series(
-    parallel(imagenes, crop, js, css),
-    parallel(serveProxy, dev)
+  parallel(imagenes, crop, js, css),
+  parallel(serveProxy, dev)
 );

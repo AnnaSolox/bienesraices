@@ -46,4 +46,4 @@ WORKDIR /workspace/bienesraices
 EXPOSE 3000
 
 #Comando por defecto para servir la app PHP
-CMD ["php", "-S", "0.0.0.0:3000", "-t", "."]
+CMD ["php", "-S", "0.0.0.0:3000", "-t", "./public"]

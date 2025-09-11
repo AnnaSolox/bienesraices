@@ -2,7 +2,7 @@
 
 require 'includes/app.php';
 
-use App\Propiedad;
+use Model\Propiedad;
 
 $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT);
