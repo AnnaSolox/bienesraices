@@ -2,6 +2,12 @@
 
 namespace App;
 
+/**
+ * @property int|null $id
+ * @property string   $nombre
+ * @property string   $apellido
+ * @property string   $telefono
+ */
 class Vendedor extends ActiveRecord 
 {
     protected static $tabla = 'vendedores';
@@ -39,6 +45,8 @@ class Vendedor extends ActiveRecord
 
         if (!$this->telefono) {
             static::$errores['telefono'] = "El telefono es obligatorio";
+        } else if(!preg_match('/[0-9]{9}/', $this->telefono)){
+            static::$errores['telefono'] = "Formato no válido";
         }
 
         return static::$errores;

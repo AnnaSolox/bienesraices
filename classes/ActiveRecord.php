@@ -3,21 +3,13 @@
 namespace App;
 
 /**
+ * Clase base ActiveRecord
+ *
  * @property int|null $id
- * @property string   $titulo
- * @property string   $precio
  * @property string   $imagen
- * @property string   $descripcion
- * @property int      $habitaciones
- * @property int      $wc
- * @property int      $estacionamiento
- * @property int|null $vendedor_id
- * @property string   $creado
- * @property string   $nombre
- * @property string   $apellido
- * @property int      $telefono
  */
-class ActiveRecord {
+class ActiveRecord
+{
     //BBDD
     protected static $db;
     protected static $columnasDB = [];
@@ -26,16 +18,19 @@ class ActiveRecord {
     //Errores
     protected static $errores = [];
 
-    
 
+    /**
+     * @return static[]
+     */
     // Definir la conexión a la BBDD
     public static function setDB($database)
     {
         self::$db = $database;
     }
 
-    public function guardar() {
-        if (!is_null($this->id)){
+    public function guardar()
+    {
+        if (!is_null($this->id)) {
             $this->actualizar();
         } else {
             $this->crear();
@@ -55,17 +50,18 @@ class ActiveRecord {
         $query .= "') ";
 
         $resultado = self::$db->query($query);
-        
+
         if ($resultado) {
-            header('Location: /admin?resultado=1'); 
+            header('Location: /admin?resultado=1');
         }
     }
 
-    public function actualizar() {
+    public function actualizar()
+    {
         $atributos = $this->sanitizarAtributos();
 
         $valores = [];
-        foreach($atributos as $key => $value) {
+        foreach ($atributos as $key => $value) {
             $valores[] = "$key = '$value'";
         }
 
@@ -77,14 +73,15 @@ class ActiveRecord {
         $resultado = self::$db->query($query);
 
         if ($resultado) {
-            header('Location: /admin?resultado=2'); 
+            header('Location: /admin?resultado=2');
         }
     }
 
-    public function eliminar(){
-         $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
-         $resultado = self::$db->query($query);
-         if ($resultado) {
+    public function eliminar()
+    {
+        $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $resultado = self::$db->query($query);
+        if ($resultado) {
             $this->eliminarImagen();
             header('Location: /admin?resultado=3');
         }
@@ -117,6 +114,9 @@ class ActiveRecord {
         return $sanitizado;
     }
 
+    /**
+     * @return static[]
+     */
     public static function getErrores()
     {
         return static::$errores;
@@ -128,41 +128,55 @@ class ActiveRecord {
         return static::getErrores();
     }
 
-    public function eliminarImagen(){
+    public function eliminarImagen()
+    {
         $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
-            if($existeArchivo){
-                unlink(CARPETA_IMAGENES . $this->imagen);
-            }
+        if ($existeArchivo) {
+            unlink(CARPETA_IMAGENES . $this->imagen);
+        }
     }
 
-    public function setImagen($imagen){
-        if(!is_null($this->id)){
+    public function setImagen($imagen)
+    {
+        if (!is_null($this->id)) {
             $this->eliminarImagen();
         }
-        if($imagen){
+        if ($imagen) {
             $this->imagen = $imagen;
         }
     }
 
-    public static function getAll(){
+    /**
+     * @return static[]
+     */
+    public static function getAll()
+    {
         $query = "SELECT * FROM " . static::$tabla;
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
-    public static function getById($id){
+    /**
+     * @return static
+     */
+    public static function getById($id)
+    {
         $query = "SELECT * FROM " . static::$tabla . " WHERE id = $id";
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
     }
 
-    public static function consultarSQL($query){
+    /**
+     * @return static[]
+     */
+    public static function consultarSQL($query)
+    {
         //Consultar BBDD
         $resultado = self::$db->query($query);
 
         //Iterar los resultados
         $array = [];
-        while($registro = $resultado->fetch_assoc()){
+        while ($registro = $resultado->fetch_assoc()) {
             $array[] = static::crearObjeto($registro);
         }
 
@@ -173,11 +187,15 @@ class ActiveRecord {
         return $array;
     }
 
-    protected static function crearObjeto($registro){
+    /**
+     * @return static[]
+     */
+    protected static function crearObjeto($registro)
+    {
         $objeto = new static;
 
-        foreach($registro as $key => $value){
-            if( property_exists( $objeto, $key) ){
+        foreach ($registro as $key => $value) {
+            if (property_exists($objeto, $key)) {
                 $objeto->$key = $value;
             }
         }
@@ -185,9 +203,10 @@ class ActiveRecord {
         return $objeto;
     }
 
-    public function sincronizar($args = []){
-        foreach($args as $key => $value) {
-            if(property_exists($this, $key) && !is_null($value)) {
+    public function sincronizar($args = [])
+    {
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key) && !is_null($value)) {
                 $this->$key = $value;
             }
         }

@@ -36,7 +36,7 @@ incluirTemplate('header');
 
     <a href="/admin" class="boton-verde">Volver</a>
 
-    <form class="formulario" method="POST" action="/admin/vendedores/actualizar.php">
+    <form class="formulario" method="POST">
         <?php incluirTemplate('formulario_vendedores', false, ['vendedor' => $vendedor, 'errores' => $errores]); ?>
        
         <input type="submit" value="Actualizar vendedor(a)" class="boton-verde">

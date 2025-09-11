@@ -2,6 +2,20 @@
 
 namespace App;
 
+/**
+ * Class Propiedad
+ * 
+ * @property int|null $id
+ * @property string   $titulo
+ * @property string   $precio
+ * @property string   $imagen
+ * @property string   $descripcion
+ * @property int      $habitaciones
+ * @property int      $wc
+ * @property int      $estacionamiento
+ * @property int|null $vendedor_id
+ * @property string   $creado
+ */
 class Propiedad extends ActiveRecord
 {
     protected static $tabla = 'propiedades';
