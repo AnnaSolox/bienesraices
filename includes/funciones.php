@@ -60,7 +60,7 @@ function mostrarNotificacion($codigo)
     return $mensaje;
 }
 
-function validarORedireccionar(string $url)
+function validarIdOredireccionar(string $url)
 {
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -70,4 +70,21 @@ function validarORedireccionar(string $url)
     }
 
     return $id;
+}
+
+function validarModeloORedireccionar($modelo, string $url) {
+    $id = validarIdOredireccionar($url);
+    $reflection = new ReflectionClass($modelo);
+    if(!$reflection->hasMethod('getById')){
+        throw new Exception("La clase no tiene método getById");
+    }
+    
+    $objeto = $modelo::getById($id);
+
+    if(is_null($objeto)) {
+        header("Location: $url");
+        exit;
+    }
+
+    return $objeto;
 }

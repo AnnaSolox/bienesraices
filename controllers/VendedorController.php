@@ -26,8 +26,7 @@ class VendedorController {
     }
 
     public static function actualizar(Router $router){
-        $id = validarORedireccionar('/admin');
-        $vendedor = Vendedor::getById($id);
+        $vendedor = $propiedad = validarModeloORedireccionar(Vendedor::class, '/admin');
         $errores = Vendedor::getErrores();
 
 

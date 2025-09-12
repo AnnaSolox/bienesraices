@@ -1,13 +1,3 @@
-<?php
-    use App\Propiedad;
-
-    if($_SERVER['SCRIPT_NAME'] === '/anuncios.php'){
-        $propiedades = Propiedad::getAll();
-    } else {
-        $propiedades = Propiedad::getLimited(3);
-    }
-?>
-
 <div class="contenedor-anuncios">
     <?php foreach ($propiedades as $propiedad): ?>
         <div class="anuncio">
@@ -36,7 +26,7 @@
                     </li>
                 </ul>
 
-                <a href="anuncio.php?id=<?php echo $propiedad->id;?>" class="boton-amarillo-block">Ver propiedad</a>
+                <a href="/propiedad?id=<?php echo $propiedad->id;?>" class="boton-amarillo-block">Ver propiedad</a>
             </div><!-- .contenido-anuncio -->
         </div><!-- .anuncio -->
     <?php endforeach; ?>

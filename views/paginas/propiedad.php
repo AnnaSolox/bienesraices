@@ -1,21 +1,3 @@
-<?php
-
-require 'includes/app.php';
-
-use Model\Propiedad;
-
-$id = $_GET['id'];
-$id = filter_var($id, FILTER_VALIDATE_INT);
-
-if(!$id){
-    header('Location: /');
-}
-
-$propiedad = Propiedad::getById($id);
-
-incluirTemplate('header');
-?>
-
 <main class="contenedor seccion contenido-centrado">
     <h1><?php echo $propiedad->titulo; ?></h1>
 
@@ -42,7 +24,3 @@ incluirTemplate('header');
         <p><?php echo $propiedad->descripcion; ?></p>
     </div>
 </main>
-
-<?php 
-incluirTemplate('footer');
-?>

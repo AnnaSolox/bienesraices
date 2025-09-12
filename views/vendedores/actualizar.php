@@ -6,7 +6,7 @@
     <form class="formulario" method="POST">
         <?php include __DIR__ . '/formulario.php'; ?>
 
-        <input type="submit" value="Registrar Vendedor(a)" class="boton-verde">
+        <input type="submit" value="Actualizar Vendedor(a)" class="boton-verde">
     </form>
 
 </main>

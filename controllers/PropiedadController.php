@@ -65,8 +65,7 @@ class PropiedadController
     }
     public static function actualizar(Router $router)
     {
-        $id = validarORedireccionar('/admin');
-        $propiedad = Propiedad::getById($id);
+        $propiedad = validarModeloORedireccionar(Propiedad::class, '/admin');
         $errores = Propiedad::getErrores();
         $vendedores = Vendedor::getAll();
 

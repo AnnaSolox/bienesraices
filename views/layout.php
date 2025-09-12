@@ -34,12 +34,12 @@
                 <div class="derecha">
                     <img src="../build/img/dark-mode.svg" alt="Icono dark mode" class="dark-mode-boton">
                     <nav class="navegacion">
-                        <a href="nosotros.php">Nosotros</a>
-                        <a href="anuncios.php">Anuncios</a>
-                        <a href="blog.php">Blog</a>
-                        <a href="contacto.php">Contacto</a>
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="/propiedades">Anuncios</a>
+                        <a href="/blog">Blog</a>
+                        <a href="/contacto">Contacto</a>
                         <?php if ($auth) : ?>
-                            <a href="cerrar-sesion.php">Cerrar sesión</a>
+                            <a href="/cerrar-sesion">Cerrar sesión</a>
                         <?php endif; ?>
                     </nav>
                 </div>
@@ -67,7 +67,7 @@
         <p class="copyright">Todos los Derechos Reservador <?php echo date('Y'); ?> &copy;</p>
     </footer>
 
-    <script src="../build/js/bundle.min.js"></script>
+    <script src="../build/js/modernizr.js"></script>
     <script src="../build/js/app.js"></script>
 </body>
 

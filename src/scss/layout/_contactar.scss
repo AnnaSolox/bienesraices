@@ -1,11 +1,11 @@
 @use 'base/variables' as v;
 
 .no-webp .imagen-contacto {
-    background-image: url("#{v.$img_path}/encuentra.jpg");
+    background-image: url("#{v.$img-path}/encuentra.jpg");
 }
 
 .webp .imagen-contacto {
-    background-image: url("#{v.$img_path}/encuentra.webp");
+    background-image: url("#{v.$img-path}/encuentra.webp");
 }
 
 .imagen-contacto {

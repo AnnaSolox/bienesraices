@@ -12,7 +12,7 @@ const bs = browserSync.create();
 const sass = gulpSass(dartSass); //enlazamos gulp con sas
 
 export function js() {
-  return src("src/js/app.js").pipe(terser()).pipe(dest("./public/build/js"));
+  return src("src/js/**/*.js").pipe(terser()).pipe(dest("./public/build/js"));
 }
 
 export function css() {
