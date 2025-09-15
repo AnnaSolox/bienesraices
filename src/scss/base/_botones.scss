@@ -17,3 +17,9 @@
     @include m.boton(v.$rojo, block);
     width: 100%;
 }
+.boton-gris {
+    @include m.boton(v.$grisOscuro, inline-block);
+}
+.boton-gris-block {
+    @include m.boton(v.$grisOscuro, block);
+}

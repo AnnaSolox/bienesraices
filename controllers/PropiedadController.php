@@ -5,6 +5,7 @@ namespace Controllers;
 use MVC\Router;
 use Model\Propiedad;
 use Model\Vendedor;
+use Model\Entrada;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager as Image;
 
@@ -14,12 +15,14 @@ class PropiedadController
     {
         $propiedades = Propiedad::getAll();
         $vendedores = Vendedor::getAll();
+        $entradas = Entrada::getAll();
         $resultado = $_GET['resultado'] ?? null;
 
         $router->render('propiedades/admin', [
             'propiedades' => $propiedades,
             'resultado' => $resultado,
-            'vendedores' => $vendedores
+            'vendedores' => $vendedores,
+            'entradas' => $entradas
         ]);
     }
     public static function crear(Router $router)

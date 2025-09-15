@@ -10,6 +10,7 @@
 
     <a href="/propiedades/crear" class="boton-verde">Nueva Propiedad</a>
     <a href="/vendedores/crear" class="boton-amarillo">Nuevo(a) vendedor</a>
+    <a href="/entradas/crear" class="boton-gris">Nueva entrada de blog</a>
 
     <h2>Propiedades</h2>
 
@@ -69,6 +70,39 @@
                             <input class="boton-rojo-block" type="submit" value="Eliminar">
                         </form>
                         <a class="boton-amarillo-block" href="/vendedores/actualizar?id=<?php echo $vendedor->id; ?>">Actualizar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h2>Entradas de blog</h2>
+
+    <table class="propiedades">
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Imagen</th>
+                <th>Resumen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody><!-- Mostrar los resultados -->
+            <?php foreach ($entradas as $entrada): ?>
+                <tr>
+                    <td><?php echo $entrada->id; ?></td>
+                    <td><?php echo $entrada->titulo; ?></td>
+                    <td><img src="/imagenes/<?php echo $entrada->imagen; ?>" alt="imagen propiedad" class="imagen-tabla"></td>
+                    <td><?php echo $entrada->resumen; ?></td>
+                    <td>
+                        <form method="POST" class="w-100" action="/entradas/eliminar">
+                            <input type="hidden" name="id" value="<?php echo $entrada->id; ?>">
+                            <input type="hidden" name="tipo" value="entrada">
+                            <input class="boton-rojo-block" type="submit" value="Eliminar">
+                        </form>
+                        <a class="boton-amarillo-block" href="/propiedades/actualizar?id=<?php echo $entrada->id; ?>">Actualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

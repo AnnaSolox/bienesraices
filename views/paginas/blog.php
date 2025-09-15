@@ -5,11 +5,7 @@
 
         <article class="entrada-blog">
             <div class="imagen">
-                <picture>
-                    <source srcset="build/img/blog1.webp" type="image/webp">
-                    <source srcset="build/img/blog1.jpg" type="image/jpeg">
-                    <img src="build/img/blog1.jpg" alt="Texto entrada blog" loading="lazy">
-                </picture>
+                <img src="/imagenes/<?php echo $entrada->imagen; ?>" alt="Foto blog" loading="lazy">
             </div>
             <div class="texto-entrada">
                 <a href="/entrada?id=<?php echo $entrada->id ?>">

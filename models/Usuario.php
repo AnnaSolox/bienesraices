@@ -65,6 +65,8 @@ class Usuario extends ActiveRecord {
         $autenticado = password_verify($this->password, $usuario->password);
         if(!$autenticado){
             self::$errores['comprobacion_password'] = 'El password es incorrecto';
+        } else {
+            $this->setId($usuario->id);
         }
 
         return $autenticado;
@@ -74,8 +76,13 @@ class Usuario extends ActiveRecord {
         session_start();
         
         $_SESSION['usuario'] = $this->email;
+        $_SESSION['usuario_id'] = $this->id;
         $_SESSION['login'] = true;
 
         header('Location: /admin');
+    }
+
+    protected function setId($id){
+        $this->id = $id;
     }
 }

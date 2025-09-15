@@ -61,38 +61,38 @@ class Propiedad extends ActiveRecord
     public function validar()
     {
         if (!$this->titulo) {
-            static::$errores['titulo'] = "Debes añadir un título";
+            self::$errores['titulo'] = "Debes añadir un título";
         }
 
         if (!$this->precio) {
-            static::$errores['precio'] = "El precio es obligatorio";
+            self::$errores['precio'] = "El precio es obligatorio";
         }
 
         if (strlen($this->descripcion) < 50) {
-            static::$errores['descripcion'] = "La descripción es obligatoria y debe tener más de 50 caracteres";
+            self::$errores['descripcion'] = "La descripción es obligatoria y debe tener más de 50 caracteres";
         }
 
         if (!$this->habitaciones) {
-            static::$errores['habitaciones'] = "El número de habitaciones es obligatorio";
+            self::$errores['habitaciones'] = "El número de habitaciones es obligatorio";
         }
 
         if (!$this->wc) {
-            static::$errores['wc'] = "El número de baños es obligatorio";
+            self::$errores['wc'] = "El número de baños es obligatorio";
         }
 
         if (!$this->estacionamiento) {
-            static::$errores['estacionamiento'] = "El número de lugares de estacionamiento es obligatorio";
+            self::$errores['estacionamiento'] = "El número de lugares de estacionamiento es obligatorio";
         }
 
         if (!$this->vendedor_id) {
-            static::$errores['vendedor'] = "Elige un vendedor";
+            self::$errores['vendedor'] = "Elige un vendedor";
         }
 
         if (!$this->imagen) {
-            static::$errores['imagen'] = "La imagen es obligatoria";
+            self::$errores['imagen'] = "La imagen es obligatoria";
         } 
 
-        return static::$errores;
+        return self::$errores;
     }
     
 }

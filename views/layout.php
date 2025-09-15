@@ -1,13 +1,14 @@
 <?php
-    if(!isset($_SESSION)){
-        session_start();
-    }
+if (!session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-    $auth = $_SESSION['login'] ?? false;
+$auth = $_SESSION['login'] ?? false;
 
-    if(!isset($inicio)){
-        $inicio = false;
-    }
+if (!isset($inicio)) {
+    $inicio = false;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
