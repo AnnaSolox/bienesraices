@@ -2,41 +2,55 @@
 
 namespace MVC;
 
-class Router {
+class Router
+{
 
     public $rutasGet = [];
     public $rutasPost = [];
 
-    public function get($url, $fn){
+    public function get($url, $fn)
+    {
         $this->rutasGet[$url] = $fn;
     }
 
-    public function post($url, $fn){
+    public function post($url, $fn)
+    {
         $this->rutasPost[$url] = $fn;
     }
 
-    public function comporbarRutas(){
+    public function comporbarRutas()
+    {
+        session_start();
+        $auth = $_SESSION['login'] ?? null;
+        $rutas_protegidas = ['/admin', '/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar', '/vendedores/crear', '/vendedores/actualizar'];
+
         $urlActual = $_SERVER['PATH_INFO'] ?? '/';
         $metodo = $_SERVER['REQUEST_METHOD'];
-        
-        if($metodo === 'GET'){
+
+        if ($metodo === 'GET') {
             $fn = $this->rutasGet[$urlActual] ?? null;
         } else {
-            $fn = $this ->rutasPost[$urlActual] ?? null;
+            $fn = $this->rutasPost[$urlActual] ?? null;
         }
 
-        if($fn) {
+        // Proteger las rutas
+        if (in_array($urlActual, $rutas_protegidas) && !$auth) {
+            header('Location: /');
+        }
+
+        if ($fn) {
             call_user_func($fn, $this);
         } else {
             echo "Página no encontrada";
         }
     }
 
-    public function render($view, $datos = []){
+    public function render($view, $datos = [])
+    {
 
-        foreach($datos as $key => $value) {
-                $$key = $value;
-            }
+        foreach ($datos as $key => $value) {
+            $$key = $value;
+        }
 
         ob_start();
 
@@ -47,5 +61,3 @@ class Router {
         include __DIR__ . "/views/layout.php";
     }
 }
-
-?>
