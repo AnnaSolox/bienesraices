@@ -64,6 +64,7 @@ class PaginasController
 
     public static function contacto(Router $router)
     {
+        $mensaje = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $respuestas = $_POST['contacto'];
@@ -117,20 +118,21 @@ class PaginasController
 
                 $mail->Body = $contenido;
                 $mail->AltBody = 'Esto es texto alternativo sin HTML';
-                $mail->send();
 
                 
-                /* //Enviar el email
+                //Enviar el email
                 if ($mail->send()) {
-                    echo "Mensaje enviado correctamente";
+                    $mensaje = "Mensaje enviado correctamente";
                 } else {
                     echo "Error al enviar el mensaje: " . $mail->ErrorInfo;
-                } */
+                }
             } catch (Exception) {
                 echo "Error al enviar el mensaje: " . $mail->ErrorInfo;
             }
         }
 
-        $router->render('paginas/contacto');
+        $router->render('paginas/contacto', [
+            'mensaje' => $mensaje
+        ]);
     }
 }
