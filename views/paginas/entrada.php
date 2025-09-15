@@ -5,7 +5,7 @@
         <source srcset="build/img/destacada2.webp" type="image/webp">
         <source srcset="build/img/destacada2.jpg" type="image/jpeg">
         <img src="build/img/destacada2.jpg" alt="Imagen de la propiedad" loading="lazy">
-        <p class="informacion-meta">Escrito el: <span><?php echo $entrada->fecha; ?></span> por: <span><?php echo $entrada->usuario_id; ?></span></p>
+        <p class="informacion-meta">Escrito el: <span><?php echo $entrada->fecha; ?></span> por: <span><?php echo $usuario->nombre; ?></span></p>
     </picture>
 
     <div class="resumen-propiedad">

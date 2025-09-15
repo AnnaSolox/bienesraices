@@ -5,6 +5,7 @@ namespace Controllers;
 use Exception;
 use Model\Entrada;
 use Model\Propiedad;
+use Model\Usuario;
 use MVC\Router;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -48,17 +49,27 @@ class PaginasController
     public static function blog(Router $router)
     {
         $entradas = Entrada::getAll();
+        $usuarios = Usuario::getAll();
+
+        $usuariosMap = [];
+        foreach($usuarios as $usuario) {
+            $usuariosMap[$usuario->id] = $usuario->nombre;
+        }
+
         $router->render('paginas/blog', [
-            'entradas' => $entradas
+            'entradas' => $entradas,
+            'usuarios' => $usuariosMap
         ]);
     }
 
     public static function entrada(Router $router)
     {
         $entrada = validarModeloORedireccionar(Entrada::class, '/blog');
+        $usuario = Usuario::getById($entrada->usuario_id);
 
         $router->render('paginas/entrada', [
-            'entrada' => $entrada
+            'entrada' => $entrada,
+            'usuario' => $usuario
         ]);
     }
 
