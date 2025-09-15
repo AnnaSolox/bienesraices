@@ -39,7 +39,7 @@
                         <a href="/blog">Blog</a>
                         <a href="/contacto">Contacto</a>
                         <?php if ($auth) : ?>
-                            <a href="/cerrar-sesion">Cerrar sesión</a>
+                            <a href="/logout">Cerrar sesión</a>
                         <?php endif; ?>
                     </nav>
                 </div>
@@ -64,7 +64,7 @@
             </nav>
         </div>
 
-        <p class="copyright">Todos los Derechos Reservador <?php echo date('Y'); ?> &copy;</p>
+        <p class="copyright">Todos los Derechos Reservados <?php echo date('Y'); ?> &copy;</p>
     </footer>
 
     <script src="../build/js/modernizr.js"></script>

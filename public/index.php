@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\LoginController;
 use Controllers\PaginasController;
 use MVC\Router;
 use Controllers\PropiedadController;
@@ -24,7 +25,7 @@ $router->post('/vendedores/actualizar', [VendedorController::class, 'actualizar'
 $router->get('/vendedores/eliminar', [VendedorController::class, 'eliminar']);
 $router->post('/vendedores/eliminar', [VendedorController::class, 'eliminar']);
 
-//Zona públic
+//Zona pública
 $router->get('/', [PaginasController::class, 'index']);
 $router->get('/nosotros', [PaginasController::class, 'nosotros']);
 $router->get('/propiedades', [PaginasController::class, 'propiedades']);
@@ -33,5 +34,10 @@ $router->get('/blog', [PaginasController::class, 'blog']);
 $router->get('/entrada', [PaginasController::class, 'entrada']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
+
+//Login y autenticación
+$router->get('/login', [LoginController::class, 'login']);
+$router->post('/login', [LoginController::class, 'login']);
+$router->get('/logout', [LoginController::class, 'logout']);
 
 $router->comporbarRutas();

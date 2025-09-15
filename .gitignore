@@ -33,6 +33,7 @@ node_modules
 
 #Info php
 info.php
-usuario.php
+
+preMVC/usuario.php
 
 /vendor/
