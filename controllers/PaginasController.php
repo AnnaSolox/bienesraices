@@ -60,8 +60,13 @@ class PaginasController
         ]);
     }
 
-    public static function contacto()
+    public static function contacto(Router $router)
     {
-        echo "Desde contacto";
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            
+        }
+
+        $router->render('paginas/contacto');
     }
 }
