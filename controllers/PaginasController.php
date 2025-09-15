@@ -69,7 +69,7 @@ class PaginasController
             $respuestas = $_POST['contacto'];
 
             // debuguear($respuestas);
-            
+
             // Crear una instancia de PHPMailer
             $mail = new PHPMailer();
 
@@ -78,6 +78,8 @@ class PaginasController
                 $mail->isSMTP();
                 $mail->Host = getenv('MAIL_HOST');
                 $mail->SMTPAuth = true;
+                // $mail->SMTPDebug = 2;
+                // $mail->Debugoutput = 'html';
                 $mail->Username = getenv('MAIL_USER');
                 $mail->Password = getenv('MAIL_PASSWORD');
                 $mail->SMTPSecure = 'tls';
@@ -96,25 +98,34 @@ class PaginasController
                 $contenido = '<html>';
                 $contenido .= '<p>Tienes un nuevo mensaje</p></html>';
                 $contenido .= '<p>Nombre: ' . $respuestas['nombre'] . ' </p>';
-                $contenido .= '<p>Email: ' . $respuestas['email'] . ' </p>';
-                $contenido .= '<p>Teléfono: ' . $respuestas['telefono'] . ' </p>';
+
+                if ($respuestas['contacto'] === 'telefono') {
+                    $contenido .= '<p>Eligió ser contactado por teléfono:</p>';
+                    $contenido .= '<p>Teléfono: ' . $respuestas['telefono'] . ' </p>';
+                    $contenido .= '<p>Fecha de contacto: ' . $respuestas['fecha'] . ' </p>';
+                    $contenido .= '<p>Hora: ' . $respuestas['hora'] . ' h </p>';
+                } else {
+                    $contenido .= '<p>Eligió ser contactado por email:</p>';
+                    $contenido .= '<p>Email: ' . $respuestas['email'] . ' </p>';
+                }
+
                 $contenido .= '<p>Mensaje: ' . $respuestas['mensaje'] . ' </p>';
                 $contenido .= '<p>Vende o compra: ' . $respuestas['tipo'] . ' </p>';
                 $contenido .= '<p>Precio o presupuesto: ' . $respuestas['presupuesto'] . '$ </p>';
                 $contenido .= '<p>Prefiere ser contactado por: ' . $respuestas['contacto'] . ' </p>';
-                $contenido .= '<p>Fecha de contacto: ' . $respuestas['fecha'] . ' </p>';
-                $contenido .= '<p>Hora: ' . $respuestas['hora'] . ' h </p>';
                 $contenido .= '</html>';
 
                 $mail->Body = $contenido;
                 $mail->AltBody = 'Esto es texto alternativo sin HTML';
+                $mail->send();
 
-                //Enviar el email
+                
+                /* //Enviar el email
                 if ($mail->send()) {
                     echo "Mensaje enviado correctamente";
                 } else {
                     echo "Error al enviar el mensaje: " . $mail->ErrorInfo;
-                }
+                } */
             } catch (Exception) {
                 echo "Error al enviar el mensaje: " . $mail->ErrorInfo;
             }
