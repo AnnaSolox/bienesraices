@@ -23,7 +23,7 @@
     <?php endif; ?>
 
     <label for="contenido">Contenido:</label>
-    <textarea id="contenido" name="entrada[contenido]"><?php if (s($entrada->contenido) !== '') echo s($entrada->contenido); ?></textarea>
+    <textarea contenteditable="true" id="contenido" name="entrada[contenido]"><?php if (s($entrada->contenido) !== '') echo s($entrada->contenido); ?></textarea>
     <?php if ($errores['contenido']): ?>
         <div class="alerta error"><?php echo $errores['contenido']; ?></div>
     <?php endif; ?>

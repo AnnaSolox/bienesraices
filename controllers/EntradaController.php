@@ -52,7 +52,39 @@ class EntradaController
         ]);
     }
 
-    public static function actualizar() {}
+    public static function actualizar(Router $router) {
+        $entrada = validarModeloORedireccionar(Entrada::class, '/admin');
+        $errores = Entrada::getErrores();
+        $usuario = Usuario::getById($entrada->id);
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $args = $_POST['entrada'];
+            $entrada->sincronizar($args);
+            $errores = $entrada->validar();
+
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+            if ($_FILES['entrada']['tmp_name']['imagen']) {
+                $manager = new Image(Driver::class);
+                $imagen = $manager->read($_FILES['entrada']['tmp_name']['imagen'])->cover(800, 600);
+                $entrada->setImagen($nombreImagen);
+            }
+
+            if (!array_filter($errores)) {
+                if ($_FILES['entrada']['tmp_name']['imagen']) {
+                    $imagen->save(CARPETA_IMAGENES . $nombreImagen);
+                }
+
+                $entrada->guardar();
+            }
+        }
+
+        $router->render('/entradas/actualizar', [
+            'entrada' => $entrada,
+            'usuario' => $usuario,
+            'errores' => $errores
+        ]);
+    }
+
     public static function eliminar() {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id = $_POST['id'];
