@@ -28,6 +28,7 @@ error.log
 access.log
 
 #Variables de entorno
+includes/.env
 .env
 node_modules
 
