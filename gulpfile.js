@@ -125,7 +125,8 @@ export function dev() {
 }
 
 // Inicializar todas las tareas cuando se abre la página
-export default series(
+exports.default = series(
   parallel(imagenes, crop, js, css),
   parallel(serveProxy, dev)
 );
+exports.build = parallel(imagenes, crop, js, css)

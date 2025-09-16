@@ -97,14 +97,14 @@ class PaginasController
             try {
                 // Configurar SMTP
                 $mail->isSMTP();
-                $mail->Host = getenv('MAIL_HOST');
+                $mail->Host = $_ENV['MAIL_HOST'];
                 $mail->SMTPAuth = true;
                 // $mail->SMTPDebug = 2;
                 // $mail->Debugoutput = 'html';
-                $mail->Username = getenv('MAIL_USER');
-                $mail->Password = getenv('MAIL_PASSWORD');
+                $mail->Username = $_ENV['MAIL_USER'];
+                $mail->Password = $_ENV['MAIL_PASSWORD'];
                 $mail->SMTPSecure = 'tls';
-                $mail->Port = getenv('MAIL_PORT');
+                $mail->Port = $_ENV['MAIL_PORT'];
                 $mail->AuthType = 'LOGIN';
 
                 // Configurar contenido del mail
