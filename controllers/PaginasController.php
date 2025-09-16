@@ -15,10 +15,19 @@ class PaginasController
     public static function index(Router $router)
     {
         $propiedades = Propiedad::getLimited(3);
+        $entradas = Entrada::getLimited(2);
+        $usuarios = Usuario::getAll();
+
+        $usuariosMap = [];
+        foreach($usuarios as $usuario) {
+            $usuariosMap[$usuario->id] = $usuario->nombre;
+        }
         $inicio = true;
 
         $router->render('/paginas/index', [
             'propiedades' => $propiedades,
+            'entradas' => $entradas,
+            'usuarios' => $usuariosMap,
             'inicio' => $inicio
         ]);
     }
