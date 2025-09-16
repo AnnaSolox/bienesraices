@@ -6,9 +6,9 @@
 
             <div class="contenido-anuncio">
                 <h3><?php echo $propiedad->titulo;?></h3>
-                <p>
+                <div class="resumen-propiedad">
                     <?php echo $propiedad->descripcion;?>
-                </p>
+                </div>
                 <p class="precio"><?php echo $propiedad->precio;?>$</p>
 
                 <ul class="iconos-caracteristicas">
