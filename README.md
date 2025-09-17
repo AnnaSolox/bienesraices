@@ -14,7 +14,7 @@ El proyecto está desarrollado con **HTML, CSS (SASS), JavaScript y PHP**, utili
 
 - **HTML5 & CSS3**: Estructura y estilos de la página.  
 - **SASS**: Preprocesador CSS para estilos más organizados y mantenibles.  
-- **JavaScript**: Sticky menu y galería de imágenes.  
+- **JavaScript**: Interactividad en la interfaz de usuario
 - **Gulp**: Automatización de tareas como compilación de SASS, minificación y construcción del proyecto.  
 - **Node.js**: Entorno de ejecución para herramientas de desarrollo.
 - **PHP**: Backend 
